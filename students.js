@@ -179,3 +179,108 @@ const missing_students = [
 		"image": null,
 	},
 ];
+
+
+const choosenStudentImgEl = document.querySelector("#choosenStudentImg");
+const buttonsWrapperEl = document.querySelector("#buttonsWrapper");
+const resultsEl = document.querySelector("#result");
+
+
+// Create and sets the amounts of correct guesses and guesse to zero.
+let guesses = 0;
+let correctGuesses = 0;
+
+
+//Creating some variables that will be used
+let choosenStudent;
+let answerOptions;
+let choosenStudentName;
+
+
+// Greeting message when you first open up the game
+alert("Hello and welcome to my Guess The Classmate game! In this game you will see a picture and four names displayed on screen. Your job is to guess the right name out of the four options")
+
+
+// function to shuffle array (fisher yates method)
+
+const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+// gets a new array of all the students names.
+let studentNames = students.map(student => student.name)
+
+// Shuffles the students array so the pictures wont appear in the same place
+shuffleArray(students)
+
+const gameStart = () => {
+
+    // sets the correct student to the amount of guesses so the game will 
+    // loop over the whole list of students
+    choosenStudent = students[guesses];    
+
+    choosenStudentImgEl.src = choosenStudent.image;
+    choosenStudentName = choosenStudent.name;
+
+    //shuffle all the names
+    shuffleArray(studentNames)
+
+    // get 3 random stundents from the array
+	answerOptions = studentNames.slice(0, 3);
+    
+
+    // put all four of the options in one array.
+    answerOptions.push(choosenStudent.name);
+
+    //shuffle the names so it wont appear in the same button all the time
+    shuffleArray(answerOptions);
+
+
+    // Clear the buttons before loading in the new names for next guess.
+    buttonsWrapperEl.innerHTML = "";
+
+    // Adds a button for each name in my "fourNames".
+    answerOptions.forEach( (answer) => {
+        if(answer === choosenStudentName){
+            buttonsWrapperEl.innerHTML += `<button id="correct" class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
+        }
+
+        else{
+            buttonsWrapperEl.innerHTML += `<button class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
+        } 
+    })
+
+    console.log(guesses)
+}
+gameStart();
+
+
+// Adds a eventlistner to my buttons wrapper
+buttonsWrapperEl.addEventListener('click', e => {
+
+    // Check if the click was actually on a button or not
+    // and checks if it was the right answer or not
+    if(e.target.tagName === 'BUTTON'){
+        guesses++;
+
+        if(e.target.id === "correct"){
+            correctGuesses++;
+            gameStart();
+        }
+
+
+        else{
+            gameStart();
+        }
+
+        
+    }
+
+    
+})
+
