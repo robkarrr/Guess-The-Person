@@ -276,7 +276,7 @@ const gameStart = () => {
 			} 
 		})
 
-		console.log(guesses)
+	
 	}
   
 	else{
