@@ -1,3 +1,14 @@
+/* 
+
+Inlämnigsuppgift 1
+
+GUESS THE PERSON
+
+Robin Karlsson
+FED21M
+
+*/
+
 const students = [
 	{
 		"name" : "Adi Dzocaj",
@@ -212,20 +223,28 @@ const shuffleArray = (array) => {
     }
 }
 
-// gets a new array of all the students names.
-let studentNames = students.map(student => student.name)
+// Create a copy of the students array so the original one stays unedited
+let copyOfStudents =[... students] 
 
-// Shuffles the students array so the pictures wont appear in the same place
-shuffleArray(students)
+// gets a new array of all the students names.
+let studentNames = copyOfStudents.map(student => student.name)
+
+
+
 
 const gameStart = () => {
 
     // sets the correct student to the amount of guesses so the game will 
     // loop over the whole list of students
-    choosenStudent = students[guesses];    
+    choosenStudent = copyOfStudents[guesses];    
 
     choosenStudentImgEl.src = choosenStudent.image;
     choosenStudentName = choosenStudent.name;
+
+	// Use filter to filter out the correct name from the student names array
+	// I do this so the correct name wont show twice in the same picture.
+
+	studentNames.filter(names => names !== choosenStudentName)
 
     //shuffle all the names
     shuffleArray(studentNames)
