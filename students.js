@@ -244,7 +244,7 @@ const gameStart = () => {
 	// Use filter to filter out the correct name from the student names array
 	// I do this so the correct name wont show twice in the same picture.
 
-	studentNames.filter(names => names !== choosenStudentName)
+	studentNames.filter(names => names !== choosenStudentName)	
 
     //shuffle all the names
     shuffleArray(studentNames)
