@@ -195,7 +195,7 @@ const missing_students = [
 const choosenStudentImgEl = document.querySelector("#choosenStudentImg");
 const buttonsWrapperEl = document.querySelector("#buttonsWrapper");
 const resultsEl = document.querySelector("#result");
-
+const resetEl = document.querySelector("#resetButtonWrapper")
 
 // Create and sets the amounts of correct guesses and guesse to zero.
 let guesses = 0;
@@ -229,7 +229,8 @@ let copyOfStudents =[... students]
 // gets a new array of all the students names.
 let studentNames = copyOfStudents.map(student => student.name)
 
-
+//shuffle the array so the pictures wont be in the same order when you play again
+shuffleArray(copyOfStudents)
 
 
 const gameStart = () => {
@@ -245,13 +246,13 @@ const gameStart = () => {
 		// Use filter to filter out the correct name from the student names array
 		// I do this so the correct name wont show twice in the same picture.
 
-		studentNames.filter(names => names !== choosenStudentName)	
+		const allWrongNames = studentNames.filter(names => names !== choosenStudentName);	
 
 		//shuffle all the names
-		shuffleArray(studentNames)
+		shuffleArray(allWrongNames)
 
 		// get 3 random stundents from the array
-		answerOptions = studentNames.slice(0, 3);
+		answerOptions = allWrongNames.slice(0, 3);
 		
 
 		// put all four of the options in one array.
@@ -280,6 +281,7 @@ const gameStart = () => {
   
 	else{
 		alert(`Well done! You completed the game. You got ${correctGuesses} out of ${guesses} right!!`)
+		resetEl.innerHTML += `<button class="btn col-12 col-lg-6 text-white border">PLAY AGAIN</button>`
 	}
 }
 gameStart();
@@ -311,3 +313,9 @@ buttonsWrapperEl.addEventListener('click', e => {
     
 })
 
+
+resetEl.addEventListener('click', e => {
+	if(e.target.tagName === 'BUTTON'){
+		location.reload();
+	}
+})
