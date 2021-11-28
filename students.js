@@ -233,48 +233,54 @@ let studentNames = copyOfStudents.map(student => student.name)
 
 
 const gameStart = () => {
+	if(guesses !== copyOfStudents.length){
 
-    // sets the correct student to the amount of guesses so the game will 
-    // loop over the whole list of students
-    choosenStudent = copyOfStudents[guesses];    
+		// sets the correct student to the amount of guesses so the game will 
+		// loop over the whole list of students
+		choosenStudent = copyOfStudents[guesses];    
 
-    choosenStudentImgEl.src = choosenStudent.image;
-    choosenStudentName = choosenStudent.name;
+		choosenStudentImgEl.src = choosenStudent.image;
+		choosenStudentName = choosenStudent.name;
 
-	// Use filter to filter out the correct name from the student names array
-	// I do this so the correct name wont show twice in the same picture.
+		// Use filter to filter out the correct name from the student names array
+		// I do this so the correct name wont show twice in the same picture.
 
-	studentNames.filter(names => names !== choosenStudentName)	
+		studentNames.filter(names => names !== choosenStudentName)	
 
-    //shuffle all the names
-    shuffleArray(studentNames)
+		//shuffle all the names
+		shuffleArray(studentNames)
 
-    // get 3 random stundents from the array
-	answerOptions = studentNames.slice(0, 3);
-    
+		// get 3 random stundents from the array
+		answerOptions = studentNames.slice(0, 3);
+		
 
-    // put all four of the options in one array.
-    answerOptions.push(choosenStudent.name);
+		// put all four of the options in one array.
+		answerOptions.push(choosenStudent.name);
 
-    //shuffle the names so it wont appear in the same button all the time
-    shuffleArray(answerOptions);
+		//shuffle the names so it wont appear in the same button all the time
+		shuffleArray(answerOptions);
 
 
-    // Clear the buttons before loading in the new names for next guess.
-    buttonsWrapperEl.innerHTML = "";
+		// Clear the buttons before loading in the new names for next guess.
+		buttonsWrapperEl.innerHTML = "";
 
-    // Adds a button for each name in my "fourNames".
-    answerOptions.forEach( (answer) => {
-        if(answer === choosenStudentName){
-            buttonsWrapperEl.innerHTML += `<button id="correct" class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
-        }
+		// Adds a button for each name in my "fourNames".
+		answerOptions.forEach( (answer) => {
+			if(answer === choosenStudentName){
+				buttonsWrapperEl.innerHTML += `<button id="correct" class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
+			}
 
-        else{
-            buttonsWrapperEl.innerHTML += `<button class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
-        } 
-    })
+			else{
+				buttonsWrapperEl.innerHTML += `<button class="col-12 col-lg-4 btn bg-dark text-white m-2 border">${answer}</button>`
+			} 
+		})
 
-    console.log(guesses)
+		console.log(guesses)
+	}
+  
+	else{
+		alert(`Well done! You completed the game. You got ${correctGuesses} out of ${guesses} right!!`)
+	}
 }
 gameStart();
 
