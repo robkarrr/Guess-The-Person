@@ -286,15 +286,17 @@ buttonsWrapperEl.addEventListener('click', e => {
     // and checks if it was the right answer or not
     if(e.target.tagName === 'BUTTON'){
         guesses++;
-
+		resultsEl.innerText = `${correctGuesses} / ${guesses}`
         if(e.target.id === "correct"){
             correctGuesses++;
+			resultsEl.innerText = `${correctGuesses} / ${guesses}`
             gameStart();
         }
 
 
         else{
             gameStart();
+			
         }
 
         
